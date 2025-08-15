@@ -57,6 +57,7 @@ class NotificationService {
           android: AndroidNotificationDetails(
             'water_reminder',
             'Lembretes de Água',
+            channelDescription: 'Notificações para lembrar de beber água',
             importance: Importance.max,
             priority: Priority.high,
           ),
@@ -65,6 +66,22 @@ class NotificationService {
         matchDateTimeComponents: DateTimeComponents.time,
       );
     }
+
+    await notificationsPlugin.show(
+      0,
+      'Teste',
+      'Notificação de teste',
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'water_reminder',
+          'Lembretes de Água',
+          channelDescription: 'Notificações para lembrar de beber água',
+          importance: Importance.max,
+          priority: Priority.high,
+        ),
+        iOS: DarwinNotificationDetails(),
+      ),
+    );
   }
 
   tz.TZDateTime _nextHour(DateTime date) {

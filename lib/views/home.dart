@@ -124,13 +124,14 @@ class _HomeState extends State<Home> {
         children: [
           FloatingActionButton(
             backgroundColor: HydroPalette.freshBlue,
+            heroTag: 'fab_copo',
             child: const Icon(Icons.water_drop),
             onPressed: () =>
                 Provider.of<AguaController>(context, listen: false).beberCopo(),
           ),
           FloatingActionButton(
             backgroundColor: HydroPalette.freshBlue,
-
+            heroTag: 'fab_garrafa',
             child: const Icon(Icons.water),
             onPressed: () => Provider.of<AguaController>(
               context,
