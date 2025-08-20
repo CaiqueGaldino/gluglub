@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oasis/user_model.dart';
 import 'package:oasis/constantes.dart';
+import 'package:oasis/services/notification_service.dart';
 
 class CadastroView extends StatefulWidget {
 	const CadastroView({Key? key}) : super(key: key);
@@ -51,6 +52,12 @@ class _CadastroViewState extends State<CadastroView> {
 				ScaffoldMessenger.of(context).showSnackBar(
 					SnackBar(content: Text('Cadastro realizado com sucesso!'), backgroundColor: Colors.green,),
 
+				);
+
+				// Agendar notificações
+				await NotificationService().scheduleCustomNotifications(
+				  horaAcorda: _horadeAcordar!.hour ?? 7,
+				  horaDormir: _horadeDormir!.hour ?? 23,
 				);
 			}
 

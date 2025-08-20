@@ -40,6 +40,7 @@ dependencies:
   timezone: ^0.10.1
   random_string: ^2.3.1
   permission_handler: ^12.0.1
+  google_mobile_ads: ^6.0.0
   
 
   # The following adds the Cupertino Icons font to your application.
@@ -60,7 +61,6 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter packages.
 flutter:
 

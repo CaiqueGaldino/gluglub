@@ -67,21 +67,50 @@ class NotificationService {
       );
     }
 
-    await notificationsPlugin.show(
-      0,
-      'Teste',
-      'Notificação de teste',
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'water_reminder',
-          'Lembretes de Água',
-          channelDescription: 'Notificações para lembrar de beber água',
-          importance: Importance.max,
-          priority: Priority.high,
+  }
+
+  Future<void> scheduleCustomNotifications({
+    required int horaAcorda,
+    required int horaDormir,
+  }) async {
+    final messages = [
+      "Hora de se hidratar! 💧 Seu corpo agradece",
+      "Não esqueça da sua água! 💦 Está na hora",
+      "Um gole agora vai te ajudar a manter o foco!",
+      "Água = Energia! ⚡ Beba agora",
+      "Seu lembrete amigável: hora da água!",
+      "Manter-se hidratado é cuidar da saúde! 💙"
+    ];
+
+    // Cancela notificações anteriores
+    await notificationsPlugin.cancelAll();
+
+    // Agenda notificações apenas no intervalo definido
+    for (int hour = horaAcorda; hour < horaDormir; hour++) {
+      final selectedMessage = randomItem(messages);
+
+      final now = DateTime.now();
+      final scheduledDate = DateTime(now.year, now.month, now.day, hour);
+
+      await notificationsPlugin.zonedSchedule(
+        hour, // ID único para cada notificação
+        'Hora da Água!',
+        selectedMessage,
+        tz.TZDateTime.from(scheduledDate, tz.local),
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'water_reminder',
+            'Lembretes de Água',
+            channelDescription: 'Notificações para lembrar de beber água',
+            importance: Importance.max,
+            priority: Priority.high,
+          ),
+          iOS: DarwinNotificationDetails(),
         ),
-        iOS: DarwinNotificationDetails(),
-      ),
-    );
+        androidScheduleMode: AndroidScheduleMode.exact,
+        matchDateTimeComponents: DateTimeComponents.time, // repete todo dia
+      );
+    }
   }
 
   tz.TZDateTime _nextHour(DateTime date) {
